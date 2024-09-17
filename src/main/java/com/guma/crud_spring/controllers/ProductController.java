@@ -3,6 +3,7 @@ package com.guma.crud_spring.controllers;
 import com.guma.crud_spring.domain.product.Product;
 import com.guma.crud_spring.domain.product.ProductRepository;
 import com.guma.crud_spring.domain.product.RequestProduct;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
@@ -42,7 +43,7 @@ public class ProductController {
             produto.setPrice_in_cents(data.price_in_cents());
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.notFound().build();
+        throw new EntityNotFoundException();
     }
 
     @DeleteMapping("/{id}")
@@ -55,7 +56,7 @@ public class ProductController {
             produto.setActive(false);
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.notFound().build();
+        throw new EntityNotFoundException();
     }
 
 }
